@@ -626,7 +626,7 @@ AC_SUBST([GRID_SUMMARY])
 AC_CONFIG_FILES([grid-config], [chmod +x grid-config])
 AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(Grid/Makefile)
-if test "x${ac_GPT}" "!=" "xno"; then
+if test "x${ac_GPT}" = "xno"; then
 AC_CONFIG_FILES(HMC/Makefile)
 fi
 AC_CONFIG_FILES(tests/Makefile)
@@ -642,7 +642,7 @@ AC_CONFIG_FILES(tests/smearing/Makefile)
 AC_CONFIG_FILES(tests/qdpxx/Makefile)
 AC_CONFIG_FILES(tests/testu01/Makefile)
 AC_CONFIG_FILES(benchmarks/Makefile)
-if test "x${ac_GPT}" "!=" "xno"; then
+if test "x${ac_GPT}" = "xno"; then
 AC_CONFIG_FILES(Hadrons/Makefile)
 AC_CONFIG_FILES(Hadrons/Utilities/Makefile)
 fi
