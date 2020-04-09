@@ -123,6 +123,21 @@ case ${ac_LAPACK} in
         AC_DEFINE([USE_LAPACK],[1],[use LAPACK]);;
 esac
 
+############### gpt
+AC_ARG_ENABLE([gpt],
+    [AC_HELP_STRING([--enable-gpt=yes|no], [enable GPT])],
+    [ac_GPT=${enable_gpt}], [ac_GPT=no])
+
+case ${ac_GPT} in
+    no)
+        ;;
+    *)
+        AM_CXXFLAGS="-fPIC $AM_CXXFLAGS"
+        AM_LDFLAGS="-fPIC $AM_LDFLAGS"
+        ;;
+esac
+
+
 ############### FP16 conversions
 AC_ARG_ENABLE([sfw-fp16],
     [AC_HELP_STRING([--enable-sfw-fp16=yes|no], [enable software fp16 comms])],
@@ -611,7 +626,9 @@ AC_SUBST([GRID_SUMMARY])
 AC_CONFIG_FILES([grid-config], [chmod +x grid-config])
 AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(Grid/Makefile)
+if test "x${ac_GPT}" "!=" "xno"; then
 AC_CONFIG_FILES(HMC/Makefile)
+fi
 AC_CONFIG_FILES(tests/Makefile)
 AC_CONFIG_FILES(tests/IO/Makefile)
 AC_CONFIG_FILES(tests/core/Makefile)
@@ -625,8 +642,10 @@ AC_CONFIG_FILES(tests/smearing/Makefile)
 AC_CONFIG_FILES(tests/qdpxx/Makefile)
 AC_CONFIG_FILES(tests/testu01/Makefile)
 AC_CONFIG_FILES(benchmarks/Makefile)
+if test "x${ac_GPT}" "!=" "xno"; then
 AC_CONFIG_FILES(Hadrons/Makefile)
 AC_CONFIG_FILES(Hadrons/Utilities/Makefile)
+fi
 AC_OUTPUT
 
 echo ""
