@@ -1,5 +1,9 @@
 # additional include paths necessary to compile the C++ library
+if ENABLE_GPT
+SUBDIRS = Grid benchmarks tests
+else
 SUBDIRS = Grid HMC Hadrons benchmarks tests
+endif
 
 include $(top_srcdir)/doxygen.inc
 

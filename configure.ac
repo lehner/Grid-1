@@ -137,6 +137,7 @@ case ${ac_GPT} in
         ;;
 esac
 
+AM_CONDITIONAL(ENABLE_GPT, [ test "x${enable_gpt}" "!=" "xno" ])
 
 ############### FP16 conversions
 AC_ARG_ENABLE([sfw-fp16],
