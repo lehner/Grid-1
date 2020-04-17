@@ -630,7 +630,6 @@ AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(Grid/Makefile)
 if test "x${ac_GPT}" = "xno"; then
 AC_CONFIG_FILES(HMC/Makefile)
-fi
 AC_CONFIG_FILES(tests/Makefile)
 AC_CONFIG_FILES(tests/IO/Makefile)
 AC_CONFIG_FILES(tests/core/Makefile)
@@ -643,6 +642,7 @@ AC_CONFIG_FILES(tests/smearing/Makefile)
 AC_CONFIG_FILES(tests/qdpxx/Makefile)
 AC_CONFIG_FILES(tests/testu01/Makefile)
 AC_CONFIG_FILES(benchmarks/Makefile)
+fi
 AC_OUTPUT
 
 echo ""

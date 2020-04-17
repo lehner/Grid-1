@@ -1,6 +1,6 @@
 # additional include paths necessary to compile the C++ library
 if ENABLE_GPT
-SUBDIRS = Grid benchmarks tests
+SUBDIRS = Grid
 else
 SUBDIRS = Grid HMC benchmarks tests
 endif
