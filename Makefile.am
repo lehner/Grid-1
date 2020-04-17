@@ -2,8 +2,7 @@
 if ENABLE_GPT
 SUBDIRS = Grid benchmarks tests
 else
-SUBDIRS = Grid HMC Hadrons benchmarks tests
-endif
+SUBDIRS = Grid HMC benchmarks tests
 
 include $(top_srcdir)/doxygen.inc
 
