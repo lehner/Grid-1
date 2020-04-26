@@ -123,12 +123,14 @@ case ${ac_LAPACK} in
         AC_DEFINE([USE_LAPACK],[1],[use LAPACK]);;
 esac
 
-############### gpt
-AC_ARG_ENABLE([gpt],
-    [AC_HELP_STRING([--enable-gpt=yes|no], [enable GPT])],
-    [ac_GPT=${enable_gpt}], [ac_GPT=no])
+############### -fPIC
+AC_ARG_ENABLE([pic],
+    [AC_HELP_STRING([--enable-pic=yes|no],
+        [enable PIC. Useful if you want to build a library that will
+         link with Grid.])],
+    [ac_PIC=yes], [ac_PIC=no])
 
-case ${ac_GPT} in
+case ${ac_PIC} in
     no)
         ;;
     *)
@@ -137,7 +139,17 @@ case ${ac_GPT} in
         ;;
 esac
 
-AM_CONDITIONAL(ENABLE_GPT, [ test "x${enable_gpt}" "!=" "xno" ])
+############### build hmc
+AC_ARG_ENABLE([hmc],
+    [AC_HELP_STRING([--disable-hmc],[Do not build HMC.])],
+    [ac_HMC=no], [ac_HMC=yes])
+AM_CONDITIONAL(ENABLE_HMC, [ test "x${ac_HMC}" "!=" xno ] )
+
+############### build tests, benchmarks
+AC_ARG_ENABLE([tests],
+    [AC_HELP_STRING([--disable-tests],[Do not build tests.])],
+    [ac_TESTS=no], [ac_TESTS=yes])
+AM_CONDITIONAL(ENABLE_TESTS, [ test "x${ac_TESTS}" "!=" xno ] )
 
 ############### FP16 conversions
 AC_ARG_ENABLE([sfw-fp16],
@@ -628,8 +640,10 @@ AC_SUBST([GRID_SUMMARY])
 AC_CONFIG_FILES([grid-config], [chmod +x grid-config])
 AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(Grid/Makefile)
-if test "x${ac_GPT}" = "xno"; then
+if test "x${ac_HMC}" "!=" "xno"; then
 AC_CONFIG_FILES(HMC/Makefile)
+fi
+if test "x${ac_TESTS}" "!=" "xno"; then
 AC_CONFIG_FILES(tests/Makefile)
 AC_CONFIG_FILES(tests/IO/Makefile)
 AC_CONFIG_FILES(tests/core/Makefile)
