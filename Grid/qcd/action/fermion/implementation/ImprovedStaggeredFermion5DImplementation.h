@@ -548,21 +548,24 @@ void ImprovedStaggeredFermion5D<Impl>::MdirAll(const FermionField &in, std::vect
   assert(0);
 }
 template <class Impl>
-RealD ImprovedStaggeredFermion5D<Impl>::M(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::M(const FermionField &in, FermionField &out) 
+{
   out.Checkerboard() = in.Checkerboard();
   Dhop(in, out, DaggerNo);
-  return axpy_norm(out, mass, in, out);
+  axpy(out, mass, in, out);
 }
 
 template <class Impl>
-RealD ImprovedStaggeredFermion5D<Impl>::Mdag(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::Mdag(const FermionField &in, FermionField &out) 
+{
   out.Checkerboard() = in.Checkerboard();
   Dhop(in, out, DaggerYes);
-  return axpy_norm(out, mass, in, out);
+  axpy(out, mass, in, out);
 }
 
 template <class Impl>
-void ImprovedStaggeredFermion5D<Impl>::Meooe(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::Meooe(const FermionField &in, FermionField &out) 
+{
   if (in.Checkerboard() == Odd) {
     DhopEO(in, out, DaggerNo);
   } else {
@@ -570,7 +573,8 @@ void ImprovedStaggeredFermion5D<Impl>::Meooe(const FermionField &in, FermionFiel
   }
 }
 template <class Impl>
-void ImprovedStaggeredFermion5D<Impl>::MeooeDag(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::MeooeDag(const FermionField &in, FermionField &out) 
+{
   if (in.Checkerboard() == Odd) {
     DhopEO(in, out, DaggerYes);
   } else {
@@ -579,27 +583,30 @@ void ImprovedStaggeredFermion5D<Impl>::MeooeDag(const FermionField &in, FermionF
 }
 
 template <class Impl>
-void ImprovedStaggeredFermion5D<Impl>::Mooee(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::Mooee(const FermionField &in, FermionField &out) 
+{
   out.Checkerboard() = in.Checkerboard();
   typename FermionField::scalar_type scal(mass);
   out = scal * in;
 }
 
 template <class Impl>
-void ImprovedStaggeredFermion5D<Impl>::MooeeDag(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::MooeeDag(const FermionField &in, FermionField &out) 
+{
   out.Checkerboard() = in.Checkerboard();
   Mooee(in, out);
 }
 
 template <class Impl>
-void ImprovedStaggeredFermion5D<Impl>::MooeeInv(const FermionField &in, FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::MooeeInv(const FermionField &in, FermionField &out) 
+{
   out.Checkerboard() = in.Checkerboard();
   out = (1.0 / (mass)) * in;
 }
 
 template <class Impl>
-void ImprovedStaggeredFermion5D<Impl>::MooeeInvDag(const FermionField &in,
-						   FermionField &out) {
+void ImprovedStaggeredFermion5D<Impl>::MooeeInvDag(const FermionField &in,FermionField &out) 
+{
   out.Checkerboard() = in.Checkerboard();
   MooeeInv(in, out);
 }
@@ -611,6 +618,7 @@ template <class Impl>
 void ImprovedStaggeredFermion5D<Impl>::ContractConservedCurrent(PropagatorField &q_in_1,
 								PropagatorField &q_in_2,
 								PropagatorField &q_out,
+								PropagatorField &src,
 								Current curr_type,
 								unsigned int mu)
 {
@@ -620,11 +628,12 @@ void ImprovedStaggeredFermion5D<Impl>::ContractConservedCurrent(PropagatorField 
 template <class Impl>
 void ImprovedStaggeredFermion5D<Impl>::SeqConservedCurrent(PropagatorField &q_in,
 							   PropagatorField &q_out,
+							   PropagatorField &src,
 							   Current curr_type,
 							   unsigned int mu, 
 							   unsigned int tmin,
-                                              unsigned int tmax,
-					      ComplexField &lattice_cmplx)
+							   unsigned int tmax,
+							   ComplexField &lattice_cmplx)
 {
   assert(0);
 

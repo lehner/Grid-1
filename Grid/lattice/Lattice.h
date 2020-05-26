@@ -31,7 +31,7 @@ Author: Peter Boyle <paboyle@ph.ed.ac.uk>
 #include <Grid/lattice/Lattice_ET.h>
 #include <Grid/lattice/Lattice_arith.h>
 #include <Grid/lattice/Lattice_trace.h>
-//#include <Grid/lattice/Lattice_transpose.h>
+#include <Grid/lattice/Lattice_transpose.h>
 #include <Grid/lattice/Lattice_local.h>
 #include <Grid/lattice/Lattice_reduction.h>
 #include <Grid/lattice/Lattice_peekpoke.h>
@@ -43,4 +43,4 @@ Author: Peter Boyle <paboyle@ph.ed.ac.uk>
 #include <Grid/lattice/Lattice_rng.h>
 #include <Grid/lattice/Lattice_unary.h>
 #include <Grid/lattice/Lattice_transfer.h>
-
+#include <Grid/lattice/Lattice_basis.h>
