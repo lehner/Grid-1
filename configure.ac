@@ -123,6 +123,34 @@ case ${ac_LAPACK} in
         AC_DEFINE([USE_LAPACK],[1],[use LAPACK]);;
 esac
 
+############### -fPIC
+AC_ARG_ENABLE([pic],
+    [AC_HELP_STRING([--enable-pic=yes|no],
+        [enable PIC. Useful if you want to build a library that will
+         link with Grid.])],
+    [ac_PIC=yes], [ac_PIC=no])
+
+case ${ac_PIC} in
+    no)
+        ;;
+    *)
+        AM_CXXFLAGS="-fPIC $AM_CXXFLAGS"
+        AM_LDFLAGS="-fPIC $AM_LDFLAGS"
+        ;;
+esac
+
+############### build hmc
+AC_ARG_ENABLE([hmc],
+    [AC_HELP_STRING([--disable-hmc],[Do not build HMC.])],
+    [ac_HMC=no], [ac_HMC=yes])
+AM_CONDITIONAL(ENABLE_HMC, [ test "x${ac_HMC}" "!=" xno ] )
+
+############### build tests, benchmarks
+AC_ARG_ENABLE([tests],
+    [AC_HELP_STRING([--disable-tests],[Do not build tests.])],
+    [ac_TESTS=no], [ac_TESTS=yes])
+AM_CONDITIONAL(ENABLE_TESTS, [ test "x${ac_TESTS}" "!=" xno ] )
+
 ############### FP16 conversions
 AC_ARG_ENABLE([sfw-fp16],
     [AC_HELP_STRING([--enable-sfw-fp16=yes|no], [enable software fp16 comms])],
@@ -688,7 +716,10 @@ AC_SUBST([GRID_SUMMARY])
 AC_CONFIG_FILES([grid-config], [chmod +x grid-config])
 AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(Grid/Makefile)
+if test "x${ac_HMC}" "!=" "xno"; then
 AC_CONFIG_FILES(HMC/Makefile)
+fi
+if test "x${ac_TESTS}" "!=" "xno"; then
 AC_CONFIG_FILES(tests/Makefile)
 AC_CONFIG_FILES(tests/IO/Makefile)
 AC_CONFIG_FILES(tests/core/Makefile)
@@ -701,6 +732,7 @@ AC_CONFIG_FILES(tests/smearing/Makefile)
 AC_CONFIG_FILES(tests/qdpxx/Makefile)
 AC_CONFIG_FILES(tests/testu01/Makefile)
 AC_CONFIG_FILES(benchmarks/Makefile)
+fi
 AC_OUTPUT
 
 echo ""
